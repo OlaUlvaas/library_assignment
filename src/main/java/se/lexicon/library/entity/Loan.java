@@ -1,10 +1,16 @@
-package se.lexicon.library.model;
+package se.lexicon.library.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-
+@Entity
 public class Loan {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LibraryUser loanTaker;
     private Book book;
