@@ -3,6 +3,7 @@ package se.lexicon.library.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+
 @Entity
 public class LibraryUser {
     @Id
