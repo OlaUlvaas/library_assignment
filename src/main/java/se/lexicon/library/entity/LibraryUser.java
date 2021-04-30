@@ -1,9 +1,11 @@
 package se.lexicon.library.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
+@Data
 @Entity
 public class LibraryUser {
     @Id
@@ -14,6 +16,12 @@ public class LibraryUser {
     @Column(unique = true)
     private String email;
 
+
+
+
+
+
+/*
     public LibraryUser() {
     }
 
@@ -68,5 +76,5 @@ public class LibraryUser {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
-    }
+    }*/
 }

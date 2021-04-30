@@ -14,21 +14,19 @@ public class BookTest {
     Book testBook;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp(){
         testBook = new Book();
         testBook.setTitle("Från Sverige till Absurdistan");
-        testBook.setAvailable(false);
+        testBook.setAvailable(true);
         testBook.setReserved(false);
         testBook.setMaxLoanDays(31);
         testBook.setFinePerDay(BigDecimal.valueOf(25));
         testBook.setDescription("A True Story");
-
     }
 
     @Test
     @DisplayName("Test 1 - Title")
     public void get_title_test(){
-
         String expectedTitle = "Från Sverige till Absurdistan";
         String actualTitle = testBook.getTitle();
         Assertions.assertEquals(expectedTitle, actualTitle);
@@ -72,15 +70,6 @@ public class BookTest {
         String expectedDescription = "A True Story";
         String actualDescription = testBook.getDescription();
         Assertions.assertEquals(expectedDescription, actualDescription);
-    }
-    @Test
-    @DisplayName("Test 7 - HashCode")
-    public void get_hash_code_test(){
-        Book expectedBook = new Book("Från Sverige till Absurdistan", 31,
-                BigDecimal.valueOf(25), "A True Story");
-        Book actualBook = testBook;
-        Assertions.assertEquals(expectedBook.hashCode(), actualBook.hashCode());
-
     }
 
 }

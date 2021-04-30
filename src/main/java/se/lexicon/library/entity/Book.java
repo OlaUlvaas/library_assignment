@@ -1,11 +1,14 @@
 package se.lexicon.library.entity;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.util.Objects;
+
+@Data
 @Entity
 public class Book {
     @Id
@@ -20,7 +23,7 @@ public class Book {
 
     public Book() {
     }
-
+/*
     public Book(String title, int maxLoanDays, BigDecimal finePerDay, String description) {
         this.title = title;
         this.maxLoanDays = maxLoanDays;
@@ -104,5 +107,5 @@ public class Book {
                 ", finePerDay=" + finePerDay +
                 ", description='" + description + '\'' +
                 '}';
-    }
+    }*/
 }

@@ -1,24 +1,31 @@
 package se.lexicon.library.entity;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Objects;
+import lombok.Data;
 
+import javax.persistence.*;
+
+import java.time.LocalDate;
+
+@Data
 @Entity
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(columnDefinition= "library_user_id")
+    @JoinColumn(name= "library_user_id")
     private LibraryUser loanTaker;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(columnDefinition= "book_id")
+    @JoinColumn(name= "book_id")
     private Book book;
     private LocalDate loanDay;
+    @Column(name = "_terminated")
     private boolean terminated;
 
+
+
+
+/*
     public Loan() {
     }
 
@@ -94,5 +101,5 @@ public class Loan {
                 ", loanDay=" + loanDay +
                 ", terminated=" + terminated +
                 '}';
-    }
+    }*/
 }
