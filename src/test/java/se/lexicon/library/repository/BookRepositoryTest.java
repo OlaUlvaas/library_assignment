@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class BookRepository {
+public class BookRepositoryTest {
 
     BookRepository testBookRepository;
     Book testBook;
+    Book testBook2;
 
     @Autowired
     public void setTestBookRepository(BookRepository testBookRepository) {
@@ -35,6 +36,18 @@ public class BookRepository {
         testBook.setDescription("tjabba");
 
         testBookRepository.save(testBook);
+
+        testBook2 = new Book();
+        testBook2.setTitle("EFG");
+        testBook2.setAvailable(true);
+        testBook2.setReserved(false);
+        testBook2.setMaxLoanDays(31);
+        testBook2.setFinePerDay(BigDecimal.valueOf(25));
+        testBook2.setDescription("hello");
+
+        testBookRepository.save(testBook2);
+
+
 
     }
 
@@ -63,7 +76,7 @@ public class BookRepository {
         Book actualBook = testBookRepository.findById(1).get();
         Assertions.assertEquals(expectedBook, actualBook);
 
-        // JAVA CANNOT FIND SYMBOL????
+
 
     }
     @Test
@@ -86,9 +99,17 @@ public class BookRepository {
     @Test
     @DisplayName("Test 4 - Delete")
     public void delete_test(){
+        List<Book> allBooks = new ArrayList<>();
         testBookRepository.save(testBook);
+        testBookRepository.save(testBook2);
         testBookRepository.delete(testBook);
-        Assertions.assertNull(testBookRepository.findAll());
+        testBookRepository.delete(testBook2);
+        List<Book> emptyBookList= new ArrayList<>();
+        testBookRepository.findAll().iterator().forEachRemaining(allBooks::add);
+
+        List<Book> expectedList = emptyBookList;
+        List<Book> actualList = allBooks;
+        Assertions.assertEquals(expectedList, actualList);
     }
 
 }
