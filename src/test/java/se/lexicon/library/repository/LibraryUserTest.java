@@ -83,4 +83,12 @@ public class LibraryUserTest {
         Assertions.assertEquals(expectedList, actualList);
     }
 
+    @Test
+    @DisplayName("Test - Find By Email")
+    public void find_by_email_test(){
+        LibraryUser expectedLibraryUser = testLibraryUser;
+        LibraryUser actualLibraryUser = testLibraryUserRepository.findByEmailIgnoreCase("pp@home.se");
+        Assertions.assertEquals(expectedLibraryUser, actualLibraryUser);
+    }
+
 }
