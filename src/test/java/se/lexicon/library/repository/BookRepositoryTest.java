@@ -51,19 +51,7 @@ public class BookRepositoryTest {
 
     }
 
-    // findById, findAll, save and delete
 
-    /*<S extends T> S save(S entity);
-
-    Optional<T> findById(ID primaryKey);
-
-    Iterable<T> findAll();
-
-    long count();
-
-    void delete(T entity);
-
-    boolean existsById(ID primaryKey);*/
 
 
 
@@ -84,7 +72,7 @@ public class BookRepositoryTest {
     public void find_all_test(){
         List<Book> allBooks = new ArrayList<>();
         testBookRepository.findAll().iterator().forEachRemaining(allBooks::add);
-        Assertions.assertEquals(1, allBooks.size());
+        Assertions.assertEquals(2, allBooks.size());
 
     }
 
