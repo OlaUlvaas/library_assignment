@@ -29,7 +29,7 @@ public class BookRepositoryTest {
         //testBookRepository = new BookRepository();
         testBook = new Book();
         testBook.setTitle("ABC");
-        testBook.setAvailable(true);
+        testBook.setAvailable(false);
         testBook.setReserved(false);
         testBook.setMaxLoanDays(31);
         testBook.setFinePerDay(BigDecimal.valueOf(25));
@@ -40,7 +40,7 @@ public class BookRepositoryTest {
         testBook2 = new Book();
         testBook2.setTitle("EFG");
         testBook2.setAvailable(true);
-        testBook2.setReserved(false);
+        testBook2.setReserved(true);
         testBook2.setMaxLoanDays(31);
         testBook2.setFinePerDay(BigDecimal.valueOf(25));
         testBook2.setDescription("hello");
@@ -100,4 +100,27 @@ public class BookRepositoryTest {
         Assertions.assertEquals(expectedList, actualList);
     }
 
+    @Test
+    @DisplayName("Test 5 - Find Books By Reserved")
+    public void find_by_reserved_test(){
+        String expectedBook = "ABC";
+        String actualBook = testBookRepository.findBooksByReserved(false).get(0).getTitle();
+        Assertions.assertEquals(expectedBook, actualBook);
+    }
+
+    @Test
+    @DisplayName("Test 6 - Find Books By Available")
+    public void find_by_available_test(){
+        String expectedBook = "EFG";
+        String actualBook = testBookRepository.findBooksByAvailable(true).get(0).getTitle();
+        Assertions.assertEquals(expectedBook, actualBook);
+    }
+
+    @Test
+    @DisplayName("Test 7 - Find Book By Title")
+    public void find_by_title_test(){
+        String expectedDescription = "tjabba";
+        String actualDescription = testBookRepository.findBookByTitle("ABC").get(0).getDescription();
+        Assertions.assertEquals(expectedDescription, actualDescription);
+    }
 }
