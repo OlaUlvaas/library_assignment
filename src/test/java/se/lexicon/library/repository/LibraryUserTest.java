@@ -84,7 +84,7 @@ public class LibraryUserTest {
     }
 
     @Test
-    @DisplayName("Test - Find By Email")
+    @DisplayName("Test 5 - Find By Email")
     public void find_by_email_test(){
         LibraryUser expectedLibraryUser = testLibraryUser;
         LibraryUser actualLibraryUser = testLibraryUserRepository.findByEmailIgnoreCase("pp@home.se");

@@ -10,6 +10,7 @@ import se.lexicon.library.entity.Book;
 import se.lexicon.library.entity.LibraryUser;
 import se.lexicon.library.entity.Loan;
 
+import javax.validation.constraints.AssertTrue;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -106,5 +107,33 @@ public class LoanRepositoryTest {
         List<Loan> expectedList = emptyLoanList;
         List<Loan> actualList = allLoans;
         Assertions.assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    @DisplayName("Test 5 - Find By Loan Taker Id")
+    public void find_by_loan_taker_id_test(){
+
+        String expectedName = "Pelle Plutt";
+        String actualName = testLoanRepository.findLoansByLoanTakerId(1).get(0).getLoanTaker().getName();
+        Assertions.assertEquals(expectedName, actualName);
+
+    }
+
+    @Test
+    @DisplayName("Test 6 - Find By Book Id")
+    public void find_by_book_id_test(){
+
+        int expectedLoanDays = 31;
+        int actualLoanDays = testLoanRepository.findLoansByBookId(1).get(0).getBook().getMaxLoanDays();
+        Assertions.assertEquals(expectedLoanDays, actualLoanDays);
+    }
+
+    @Test
+    @DisplayName("Test 7 - Find By Terminated")
+    public void find_by_terminated_test(){
+
+        String expectedBook = "ABC";
+        String actualBook = testLoanRepository.findLoansByTerminated(false).get(0).getBook().getTitle();
+        Assertions.assertEquals(expectedBook, actualBook);
     }
 }
