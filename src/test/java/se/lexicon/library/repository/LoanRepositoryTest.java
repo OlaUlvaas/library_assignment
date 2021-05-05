@@ -10,7 +10,7 @@ import se.lexicon.library.entity.Book;
 import se.lexicon.library.entity.LibraryUser;
 import se.lexicon.library.entity.Loan;
 
-import javax.validation.constraints.AssertTrue;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
