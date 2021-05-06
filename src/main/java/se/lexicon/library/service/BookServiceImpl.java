@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.lexicon.library.dto.BookDto;
 import se.lexicon.library.entity.Book;
+import se.lexicon.library.exception.DataNotFoundException;
 import se.lexicon.library.repository.BookRepository;
 
 import java.util.ArrayList;
@@ -55,13 +56,11 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookDto findById(int bookId) {
+    public BookDto findById(int bookId) throws DataNotFoundException {
+
         if (bookId == 0) throw new IllegalArgumentException("Book Id should not be zero");
-
-        BookDto result = modelMapper.map(bookRepository.findById(bookId),BookDto.class);
-        /*BookDto result = modelMapper.map(bookRepository.findById(bookId).orElseThrow(() ->
-                new DataNotFoundException("BookDto not found")), BookDto.class);*/
-
+        BookDto result = modelMapper.map(bookRepository.findById(bookId)
+                .orElseThrow(() -> new DataNotFoundException("BookDto not found")),BookDto.class);
         return result;
     }
 
@@ -84,9 +83,9 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookDto update(BookDto bookDto) {
+    public BookDto update(BookDto bookDto) throws DataNotFoundException {
         if (bookDto.equals(null)) throw new IllegalArgumentException("BookDto not found");
-        if (bookDto.getId() < 1) throw new IllegalArgumentException("BookDto is not valid");
+        if (bookDto.getId() == 1) throw new IllegalArgumentException("BookDto is not valid");
 
         Optional<Book> bookOptional = bookRepository.findById(modelMapper.map(bookDto,Book.class).getId());
         if (bookOptional.isPresent()){
@@ -94,10 +93,13 @@ public class BookServiceImpl implements BookService{
             return result;
         }
         return null;
+
     }
 
     @Override
-    public boolean delete(int bookId) {
+    public boolean delete(int bookId) throws DataNotFoundException {
+
+        if (bookId == 0) throw new IllegalArgumentException("Book Id should not be zero");
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {
             Book bookEntity = modelMapper.map(optionalBook, Book.class);
@@ -105,5 +107,8 @@ public class BookServiceImpl implements BookService{
             return true;
         }
         return false;
+
+
+
     }
 }

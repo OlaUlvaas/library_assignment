@@ -63,10 +63,8 @@ public class BookRepositoryTest {
         Book expectedBook = allBooks.get(0);
         Book actualBook = testBookRepository.findById(1).get();
         Assertions.assertEquals(expectedBook, actualBook);
-
-
-
     }
+
     @Test
     @DisplayName("Test 2 - Find All")
     public void find_all_test(){
