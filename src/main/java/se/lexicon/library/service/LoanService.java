@@ -13,7 +13,7 @@ public interface LoanService {
     List<LoanDto> findAll();
     LoanDto create(LoanDto loanDto);
     LoanDto update(LoanDto loanDto)throws DataNotFoundException;
-    boolean delete(long loanId);
+    boolean delete(long loanId)throws DataNotFoundException;
 
 
 }
