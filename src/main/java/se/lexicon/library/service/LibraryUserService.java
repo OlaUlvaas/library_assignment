@@ -11,5 +11,5 @@ public interface LibraryUserService {
     List<LibraryUserDto> findAll();
     LibraryUserDto create(LibraryUserDto libraryUserDto);
     LibraryUserDto update(LibraryUserDto libraryUserDto)throws DataNotFoundException;
-    boolean delete(int userId);
+    boolean delete(int userId)throws DataNotFoundException;
 }

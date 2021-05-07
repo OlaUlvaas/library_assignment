@@ -111,7 +111,5 @@ public class BookServiceImpl implements BookService{
         bookRepository.delete(modelMapper.map(bookRepository.findById(bookId)
                 .orElseThrow(() -> new DataNotFoundException("Id ")), Book.class));
         return true;
-
-
     }
 }

@@ -7,6 +7,7 @@ import se.lexicon.library.dto.BookDto;
 import se.lexicon.library.dto.LibraryUserDto;
 import se.lexicon.library.entity.Book;
 import se.lexicon.library.entity.LibraryUser;
+import se.lexicon.library.entity.Loan;
 import se.lexicon.library.exception.DataNotFoundException;
 import se.lexicon.library.repository.LibraryUserRepository;
 
@@ -98,29 +99,29 @@ public class LibraryUserServiceImpl implements LibraryUserService{
     }
 
     @Override
-    public boolean delete(int userId) {
-        if (userId == 0) throw new IllegalArgumentException("Id should not be zero");
+    public boolean delete(int userId) throws DataNotFoundException {
+        /*if (userId < 1) throw new IllegalArgumentException("Id is not valid");
+        libraryUserRepository.delete(modelMapper.map(libraryUserRepository.findById(userId).;
+        return true;*/
+
+
+
+
+
+
+        libraryUserRepository.delete(modelMapper.map(libraryUserRepository.findById(userId)
+                .orElseThrow(() -> new DataNotFoundException("Id ")), LibraryUser.class));
+        return true;
+
+
+        /*if (userId < 1) throw new IllegalArgumentException("Id should not be zero");
         Optional<LibraryUser> optionalLibraryUser = libraryUserRepository.findById(userId);
-        if(optionalLibraryUser.isPresent()){
-            LibraryUser libraryUserEntity =modelMapper.map(optionalLibraryUser, LibraryUser.class);
+        if (optionalLibraryUser.isPresent()) {
+            LibraryUser libraryUserEntity  = modelMapper.map(optionalLibraryUser, LibraryUser.class);
             libraryUserRepository.delete(libraryUserEntity);
             return true;
         }
-        else throw new IllegalArgumentException("LibraryUser not found");
-
-
-
-
-
-
-
-        /*if (userId == 0) throw new IllegalArgumentException("Id should not be null");
-        Optional<LibraryUser> optionalLibraryUser = libraryUserRepository.findById(userId);
-        if (optionalLibraryUser.isPresent()) {
-            LibraryUser libraryUserEntity = modelMapper.map(optionalLibraryUser, LibraryUser.class);
-            libraryUserRepository.delete(libraryUserEntity);
-            return true;
-        } else throw new IllegalArgumentException("LibraryUser not found");}*/
+        return false;*/
 
 
     }

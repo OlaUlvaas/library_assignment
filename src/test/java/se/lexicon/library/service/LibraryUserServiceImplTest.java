@@ -84,35 +84,13 @@ public class LibraryUserServiceImplTest {
         assertEquals("Donald Trump", testLibraryUserService.update(testLibraryUserDto).getName());
     }
 
+
     @Test
     @DisplayName("Test 6 - Delete Method")
-    public void delete_test() {
-        /*testObject.create(libraryUserDto2);
-
-        assertEquals(2, testObject.findAll().size());
-        testObject.delete(2);
-        assertEquals(1, testObject.findAll().size());*/
-
+    public void delete_test() throws DataNotFoundException {
         testLibraryUserService.create(testLibraryUserDto2);
-        assertEquals(2, testLibraryUserService.findAll().size());
-
+        Assertions.assertEquals(2, testLibraryUserService.findAll().size());
+        testLibraryUserService.delete(1);
+        Assertions.assertEquals(1, testLibraryUserService.findAll().size());
     }
-
-
-
-
-    /*
-
-
-
-    boolean delete(int userId);
-
-
-    LibraryUserDto findById(int userId)throws DataNotFoundException;
-    LibraryUserDto findByEmail(String email);
-    List<LibraryUserDto> findAll();
-    LibraryUserDto create(LibraryUserDto libraryUserDto);
-    LibraryUserDto update(LibraryUserDto libraryUserDto)throws DataNotFoundException;
-
-    */
 }

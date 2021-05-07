@@ -21,7 +21,7 @@ public class BookServiceImplTest {
 
     BookService testBookService;
     BookDto testBookDto1;
-    //BookDto testBookDto2;
+    BookDto testBookDto2;
 
     @Autowired
     public void setTestBookService(BookService testBookService) {
@@ -31,7 +31,7 @@ public class BookServiceImplTest {
     @BeforeEach
     public void setUp(){
         testBookDto1 = new BookDto();
-        //testBookDto2 = new BookDto();
+        testBookDto2 = new BookDto();
 
         testBookDto1.setTitle("Från Sverige till Absurdistan");
         testBookDto1.setAvailable(true);
@@ -41,6 +41,13 @@ public class BookServiceImplTest {
         testBookDto1.setDescription("A True Story");
 
         testBookService.create(testBookDto1);
+
+        testBookDto2.setTitle("New Book");
+        testBookDto2.setAvailable(false);
+        testBookDto2.setReserved(true);
+        testBookDto2.setFinePerDay(BigDecimal.valueOf(25));
+        testBookDto2.setMaxLoanDays(31);
+        testBookDto2.setDescription("Fake News");
     }
     @Test
     @DisplayName("Test 1 - Create Method")
@@ -93,9 +100,10 @@ public class BookServiceImplTest {
     @Test
     @DisplayName("Test 7 - Delete Method")
     public void delete_test() throws DataNotFoundException {
-        Assertions.assertEquals(1, testBookService.findAll().size());
+        testBookService.create(testBookDto2);
+        Assertions.assertEquals(2, testBookService.findAll().size());
         testBookService.delete(1);
-        Assertions.assertEquals(0, testBookService.findAll().size());
+        Assertions.assertEquals(1, testBookService.findAll().size());
     }
 
     @Test
