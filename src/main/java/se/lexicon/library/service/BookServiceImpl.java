@@ -85,7 +85,7 @@ public class BookServiceImpl implements BookService{
     @Override
     public BookDto update(BookDto bookDto) throws DataNotFoundException {
         if (bookDto.equals(null)) throw new IllegalArgumentException("BookDto not found");
-        if (bookDto.getId() == 1) throw new IllegalArgumentException("BookDto is not valid");
+        if (bookDto.getId() == 0) throw new IllegalArgumentException("BookDto is not valid");
 
         Optional<Book> bookOptional = bookRepository.findById(modelMapper.map(bookDto,Book.class).getId());
         if (bookOptional.isPresent()){
@@ -99,15 +99,18 @@ public class BookServiceImpl implements BookService{
     @Override
     public boolean delete(int bookId) throws DataNotFoundException {
 
-        if (bookId == 0) throw new IllegalArgumentException("Book Id should not be zero");
+        /*if (bookId == 0) throw new IllegalArgumentException("Book Id should not be zero");
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {
             Book bookEntity = modelMapper.map(optionalBook, Book.class);
             bookRepository.delete(bookEntity);
             return true;
         }
-        return false;
+        return false;*/
 
+        bookRepository.delete(modelMapper.map(bookRepository.findById(bookId)
+                .orElseThrow(() -> new DataNotFoundException("Id ")), Book.class));
+        return true;
 
 
     }

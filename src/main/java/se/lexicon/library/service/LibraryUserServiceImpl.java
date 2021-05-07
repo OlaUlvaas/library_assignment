@@ -3,7 +3,9 @@ package se.lexicon.library.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.lexicon.library.dto.BookDto;
 import se.lexicon.library.dto.LibraryUserDto;
+import se.lexicon.library.entity.Book;
 import se.lexicon.library.entity.LibraryUser;
 import se.lexicon.library.exception.DataNotFoundException;
 import se.lexicon.library.repository.LibraryUserRepository;
@@ -59,15 +61,26 @@ public class LibraryUserServiceImpl implements LibraryUserService{
     @Override
     public LibraryUserDto create(LibraryUserDto libraryUserDto) {
 
-        if (libraryUserDto.equals(null)) throw new IllegalArgumentException("LibraryUserDto should not be null");
+        if (libraryUserDto.equals(null)) throw new IllegalArgumentException("LibraryUserDto not found");
         if (libraryUserDto.getId() != 0) throw new IllegalArgumentException("Id is not valid");
 
 
-        LibraryUser libraryUserEntity = modelMapper.map(libraryUserDto, LibraryUser.class);
+        LibraryUserDto result = modelMapper.map(libraryUserRepository.save(modelMapper.map(libraryUserDto,
+                LibraryUser.class)), LibraryUserDto.class);
+        return result;
+
+        /*LibraryUser libraryUserEntity = modelMapper.map(libraryUserDto, LibraryUser.class);
 
         LibraryUser createdUser = libraryUserRepository.save(libraryUserEntity);
         LibraryUserDto convertedToDto = modelMapper.map(createdUser, LibraryUserDto.class);
-        return convertedToDto;
+        return convertedToDto;*/
+
+
+        /*if(bookDto.equals(null)) throw new IllegalArgumentException("BookDto not found");
+        if(bookDto.getId() != 0) throw new IllegalArgumentException("Id should be zero");
+
+        BookDto result =  modelMapper.map(bookRepository.save(modelMapper.map(bookDto, Book.class)),BookDto.class);
+        return result;*/
     }
 
     @Override
@@ -93,6 +106,22 @@ public class LibraryUserServiceImpl implements LibraryUserService{
             libraryUserRepository.delete(libraryUserEntity);
             return true;
         }
-        return false;
+        else throw new IllegalArgumentException("LibraryUser not found");
+
+
+
+
+
+
+
+        /*if (userId == 0) throw new IllegalArgumentException("Id should not be null");
+        Optional<LibraryUser> optionalLibraryUser = libraryUserRepository.findById(userId);
+        if (optionalLibraryUser.isPresent()) {
+            LibraryUser libraryUserEntity = modelMapper.map(optionalLibraryUser, LibraryUser.class);
+            libraryUserRepository.delete(libraryUserEntity);
+            return true;
+        } else throw new IllegalArgumentException("LibraryUser not found");}*/
+
+
     }
 }

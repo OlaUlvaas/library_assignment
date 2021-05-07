@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 public class BookServiceImplTest {
 
@@ -42,7 +44,7 @@ public class BookServiceImplTest {
     }
     @Test
     @DisplayName("Test 1 - Create Method")
-    public void create() {
+    public void create_test() {
 
         String expectedDescription = "A True Story";
         String actualDescription = testBookService.create(testBookDto1).getDescription();
@@ -51,7 +53,7 @@ public class BookServiceImplTest {
 
     @Test
     @DisplayName("Test 2 - Find By Reserved Method")
-    public void findByReserved() {
+    public void find_by_reserved_test() {
         String expectedTitle = "Från Sverige till Absurdistan";
         String actualTitle = testBookService.findByReserved(false).get(0).getTitle();
         Assertions.assertEquals(expectedTitle, actualTitle);
@@ -59,7 +61,7 @@ public class BookServiceImplTest {
 
     @Test
     @DisplayName("Test 3 - Find By Available Method")
-    public void findByAvailable() {
+    public void find_by_available_test() {
         String expectedTitle = "Från Sverige till Absurdistan";
         String actualTitle = testBookService.findByAvailable(true).get(0).getTitle();
         Assertions.assertEquals(expectedTitle, actualTitle);
@@ -68,7 +70,7 @@ public class BookServiceImplTest {
 
     @Test
     @DisplayName("Test 4 - Find By Title Method")
-    public void findByTitle() {
+    public void find_by_title_test() {
         String expectedTitle = "Från Sverige till Absurdistan";
         String actualTitle = testBookService.findByTitle("Från Sverige till Absurdistan").get(0).getTitle();
         Assertions.assertEquals(expectedTitle, actualTitle);
@@ -76,13 +78,33 @@ public class BookServiceImplTest {
 
     @Test
     @DisplayName("Test 5 - Find All Method")
-    public void findAll() {
+    public void find_all_test() {
         int expectedSize = 1;
         int actualSize = testBookService.findAll().size();
         Assertions.assertEquals(expectedSize, actualSize);
 
     }
 
+    @Test
+    @DisplayName("Test 6 - Find By Id Method")
+    public void find_by_id_test() throws DataNotFoundException {
+        Assertions.assertEquals("A True Story", testBookService.findById(1).getDescription());
+    }
+    @Test
+    @DisplayName("Test 7 - Delete Method")
+    public void delete_test() throws DataNotFoundException {
+        Assertions.assertEquals(1, testBookService.findAll().size());
+        testBookService.delete(1);
+        Assertions.assertEquals(0, testBookService.findAll().size());
+    }
+
+    @Test
+    @DisplayName("Test 8 - Update Method")
+    public void update_test()throws DataNotFoundException{
+        testBookDto1.setId(1);
+        testBookDto1.setDescription("A new Story");
+        Assertions.assertEquals("A new Story", testBookService.update(testBookDto1).getDescription());
+    }
 
 
 }
