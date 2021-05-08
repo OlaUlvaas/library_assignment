@@ -11,21 +11,28 @@ import se.lexicon.library.service.LibraryUserService;
 import javax.transaction.Transactional;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("api/v1/libraryUser")
 public class LibraryUserController {
 
+
     LibraryUserService libraryUserService;
+
 
     @Autowired
     public void setLibraryUserService(LibraryUserService libraryUserService) {
         this.libraryUserService = libraryUserService;
     }
 
+
+
+
     @GetMapping("/")
     public ResponseEntity<List<LibraryUserDto>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(libraryUserService.findAll());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<LibraryUserDto> findById(@PathVariable("id")Integer userId){
@@ -38,15 +45,18 @@ public class LibraryUserController {
         }
     }
 
+
+
     @GetMapping("/email/{email}")
     public ResponseEntity<LibraryUserDto> findByEmail(@PathVariable("email") String email){
         if(email.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         return ResponseEntity.status(HttpStatus.OK).body(libraryUserService.findByEmail(email));
     }
 
+
     @Transactional
     @PostMapping("/")
-    public ResponseEntity<LibraryUserDto> save(@RequestBody /*@Valid*/ LibraryUserDto dto){
+    public ResponseEntity<LibraryUserDto> save(@RequestBody LibraryUserDto dto){
         if(dto == null) {
             if (dto.getId() <= 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -55,7 +65,7 @@ public class LibraryUserController {
 
     @Transactional
     @PutMapping("/")
-    public ResponseEntity<LibraryUserDto> update(@RequestBody /*@Valid*/ LibraryUserDto dto) throws DataNotFoundException {
+    public ResponseEntity<LibraryUserDto> update(@RequestBody LibraryUserDto dto) throws DataNotFoundException {
         if(dto != null)
             if (dto.getId() < 1) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
@@ -65,7 +75,7 @@ public class LibraryUserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<LibraryUserDto> delete(@PathVariable("id")Integer id) throws DataNotFoundException {
         if (id < 1) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        libraryUserService.delete(id);
+        libraryUserService.delete(id); //delete returns void
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

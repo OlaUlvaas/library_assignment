@@ -13,6 +13,8 @@ import java.util.List;
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
+
+
 @RestController
 @RequestMapping("/api/v1/book")
 public class BookController {
@@ -28,6 +30,7 @@ public class BookController {
     public ResponseEntity<List<BookDto>> findAll(){
         return ResponseEntity.ok(bookService.findAll());
     }
+
 
     @GetMapping("/find")
     public ResponseEntity<List<BookDto>> find(
@@ -60,7 +63,7 @@ public class BookController {
 
     @Transactional
     @PostMapping("/")
-    public ResponseEntity<BookDto> save(@RequestBody /*@Valid*/ BookDto dto){
+    public ResponseEntity<BookDto> save(@RequestBody BookDto dto){
         if(dto == null)
             if (dto.getId() <= 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.create(dto));
@@ -69,7 +72,7 @@ public class BookController {
 
     @Transactional
     @PutMapping("/")
-    public ResponseEntity<BookDto> update(@RequestBody /*@Valid*/ BookDto dto){
+    public ResponseEntity<BookDto> update(@RequestBody BookDto dto){
         if(dto != null)
             if (dto.getId() < 1) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         try {
@@ -80,9 +83,9 @@ public class BookController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id")Integer id) throws DataNotFoundException {
+
         bookService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
