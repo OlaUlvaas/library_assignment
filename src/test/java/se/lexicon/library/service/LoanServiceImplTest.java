@@ -82,6 +82,8 @@ public class LoanServiceImplTest {
         testLibraryUserDto2.setName("Mr President");
         testLibraryUserDto2.setEmail("drain@swamp.com");*/
     }
+    // Dont know why its problem with LoanServiceImplTest
+
     /*@Test
     @DisplayName("Test 1 - Find By Id Method")
     public void find_by_id_test() throws DataNotFoundException {
